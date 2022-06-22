@@ -1,3 +1,7 @@
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -10,29 +14,63 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // const signIn = (e) => {
+  //   e.preventDefault();
+
+  //   auth
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then((auth) => {
+  //       history.push("/");
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
   const signIn = (e) => {
     e.preventDefault();
 
-    auth
-      .signInWithEmailAndPassword(email.at, password)
-      .then((auth) => {
-        history.push("/");
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // signed in
+        history.push('/')
+        const user = userCredential.user;
+        console.log(user);
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        alert(errorMessage)
+      });
   };
 
+  // const register = (e) => {
+  //   e.preventDefault();
+
+  //   auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((auth) => {
+  //       //   it successfully created a new user
+  //       if (auth) {
+  //         history.push("/");
+  //       }
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
   const register = (e) => {
     e.preventDefault();
 
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((auth) => {
-        //   it successfully created a new user
-        if (auth) {
-          history.push("/");
-        }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // signed In
+        const user = userCredential.user;
+        console.log(user);
+        // ...
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        alert(errorMessage)
+      });
   };
 
   return (
@@ -59,7 +97,13 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit" className="login__signInButton"  onClick={signIn}>Sign In</button>
+          <button
+            type="submit"
+            className="login__signInButton"
+            onClick={signIn}
+          >
+            Sign In
+          </button>
         </form>
 
         <p>
