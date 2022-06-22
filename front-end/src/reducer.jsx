@@ -1,6 +1,11 @@
 export const initialState = {
   basket: [],
-  user: null,
+  // user: {
+  //   name:'Ricky',
+  //   email:'ricky@gmail.com'
+  // },
+  user:null
+
 };
 
 // selector
