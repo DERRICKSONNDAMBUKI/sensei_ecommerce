@@ -4,9 +4,15 @@ import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasket from "@mui/icons-material/ShoppingBasket";
 import { useStateValue } from "../../StateProvider";
+import { auth } from "../../firebase";
 
 export const Header = () => {
   const [{ basket, user }, dispatch] = useStateValue();
+  const handleAuthentication = ()=>{
+    if(user){
+      auth.signOut()
+    }
+  }
 
   return (
     <div className="header">
