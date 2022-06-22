@@ -10,14 +10,14 @@ import { useStateValue } from "./StateProvider";
 import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
-  const [{},dispatch] = useStateValue();
+  const [{user},dispatch] = useStateValue();
   useEffect(() => {
     //  will only run once when the app component loads...
     onAuthStateChanged(auth, (user) => {
       if (user) {
           // console.log("THE USER IS >>> ", user.email);
         // is signed in
-        const uid = user.uid;
+        // const uid = user.uid;
         dispatch({
           type: "SET_USER",
           user: user,
@@ -45,7 +45,7 @@ function App() {
     //     });
     //   }
     // });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">

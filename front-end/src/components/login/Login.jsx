@@ -31,7 +31,7 @@ export const Login = () => {
       .then((userCredential) => {
         // signed in
         history.push('/')
-        const user = userCredential.user;
+        // const user = userCredential.user;
         // console.log(user);
       })
       .catch((error) => {
@@ -62,7 +62,7 @@ export const Login = () => {
       .then((userCredential) => {
         // signed In
         history.push('/')
-        const user = userCredential.user;
+        // const user = userCredential.user;
         // console.log(user);
         // ...
       })

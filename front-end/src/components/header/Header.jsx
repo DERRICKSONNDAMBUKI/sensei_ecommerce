@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 
 export const Header = () => {
-  const [{ basket, user }, dispatch] = useStateValue();
+  const [{ basket, user }] = useStateValue();
   const handleAuthentication = () => {
     if (user) {
       console.log("THE USER IS >>> ", user.email);
