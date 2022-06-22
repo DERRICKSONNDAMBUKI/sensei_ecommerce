@@ -1,12 +1,39 @@
 import React from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { auth } from "../../firebase";
 import "./Login.css";
 
-
 export const Login = () => {
-  const [email, setEmail] = useState('')
+  const history = useHistory();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const signIn = (e) => {
+    e.preventDefault();
+
+    auth
+      .signInWithEmailAndPassword(email.at, password)
+      .then((auth) => {
+        history.push("/");
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const register = (e) => {
+    e.preventDefault();
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        //   it successfully created a new user
+        if (auth) {
+          history.push("/");
+        }
+      })
+      .catch((error) => alert(error.message));
+  };
 
   return (
     <div className="login">
@@ -32,19 +59,19 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button className="login__signInButton">Sign In</button>
+          <button type="submit" className="login__signInButton"  onClick={signIn}>Sign In</button>
         </form>
 
         <p>
-            {/* to be edited */}
+          {/* to be edited */}
           By signing-in you agree to the SENSEI ECOMMERCE Conditions of Use &
           Sale. Please see our Privacy Notice, our Cookies Notice and our
           Interest-Based Ads Notice.
         </p>
 
-        <button className="login__registerButton">
-            {/* to be edited */}
-            Create you Sensei Ecommerce Account
+        <button onClick={register} className="login__registerButton">
+          {/* to be edited */}
+          Create you Sensei Ecommerce Account
         </button>
       </div>
     </div>
