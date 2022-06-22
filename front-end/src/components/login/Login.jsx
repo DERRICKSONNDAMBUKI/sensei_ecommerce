@@ -32,7 +32,7 @@ export const Login = () => {
         // signed in
         history.push('/')
         const user = userCredential.user;
-        console.log(user);
+        // console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -61,8 +61,9 @@ export const Login = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // signed In
+        history.push('/')
         const user = userCredential.user;
-        console.log(user);
+        // console.log(user);
         // ...
       })
       .catch((error) => {

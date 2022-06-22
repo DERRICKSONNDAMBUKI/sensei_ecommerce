@@ -12,6 +12,7 @@ export const Header = () => {
   const [{ basket, user }, dispatch] = useStateValue();
   const handleAuthentication = () => {
     if (user) {
+      console.log("THE USER IS >>> ", user.email);
       auth.signOut();
     }
   };
